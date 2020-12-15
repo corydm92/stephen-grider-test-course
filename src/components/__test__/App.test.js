@@ -21,7 +21,9 @@ it('shows a comment box', () => {
 	 * @param {value} > Value that we expect to see / Expected value, its what we want our 'subject' to be
 	 */
 
-	expect(div.innerHTML).toContain('CommentBox');
+	// Below is a bad test, this file is dedicated to making sure we are looking at a single layer that the app component is responsible for rendering. The test below is making an assertion inside our CommentBox component. This is wrong, because if we begin to change the value (or values) inside the CommentBox, this test will break. As the app scales, if we are asserting more than one layer deep into our component, one change may break many test files, causing us to run around and change values all over the place.
+
+	// expect(div.innerHTML).toContain('CommentBox');
 
 	ReactDOM.unmountComponentAtNode(div); // If we dont preform cleanup, this component will stay around for as long as the test suite remains running
 });
