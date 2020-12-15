@@ -1,15 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from '../App';
+import { shallow } from 'enzyme';
+import CommentBox from '../CommentBox';
 
 /**
- * App Test
+ * App Test (Example Without Enzyme)
  * @function it > Global Function, able to be called without an import. Can contain 0 to tons of Expectations. In general, you will see one or two expecations in an 'it' statement.
  * @param {string} > Describes what the test does
  * @param {function} > Block of code to execute your test
  */
 
-it('shows a comment box', () => {
+it('shows a comment box (no enzyme)', () => {
 	const div = document.createElement('div'); // document is making use of the JSDOM library to create a fake browser environment for react to run inside of.
 
 	ReactDOM.render(<App />, div);
@@ -26,4 +28,21 @@ it('shows a comment box', () => {
 	// expect(div.innerHTML).toContain('CommentBox');
 
 	ReactDOM.unmountComponentAtNode(div); // If we dont preform cleanup, this component will stay around for as long as the test suite remains running
+});
+
+/**
+ * App Test (Using Enzyme)
+ */
+
+it('shows a comment box (using enzyme)', () => {
+	const wrapper = shallow(<App />);
+
+	// find() returns an array, which is why we measure the length of our expect statement.
+	expect(wrapper.find(CommentBox)).toHaveLength(1);
+
+	// You should always try to break your test to make sure you aren't receiviing a false positive (the test below should fail and tell us the received length is 1)
+	// expect(wrapper.find(CommentBox)).toHaveLength(9);
+
+	// Second way to get the length
+	expect(wrapper.find(CommentBox).length).toEqual(1);
 });
