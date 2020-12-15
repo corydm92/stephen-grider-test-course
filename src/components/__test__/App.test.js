@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from '../App';
+import App from 'components/App';
 import { shallow } from 'enzyme';
-import CommentBox from '../CommentBox';
-import CommentList from '../CommentList';
+import CommentBox from 'components/CommentBox';
+import CommentList from 'components/CommentList';
 
 /**
  * App Test
@@ -12,10 +12,14 @@ import CommentList from '../CommentList';
  * @param {function} > Block of code to execute your test
  */
 
+let wrapper; // Define any common methods within the scope of both the beforeEach() and it() blocks.
+
+beforeEach(() => {
+	wrapper = shallow(<App />);
+});
+
 // With Enzyme
 it('shows a comment box', () => {
-	const wrapper = shallow(<App />);
-
 	// find() returns an array, which is why we measure the length of our expect statement.
 	expect(wrapper.find(CommentBox)).toHaveLength(1);
 
@@ -27,19 +31,10 @@ it('shows a comment box', () => {
 });
 
 it('shows a comment list', () => {
-	const wrapper = shallow(<App />);
-
 	expect(wrapper.find(CommentList)).toHaveLength(1);
 });
 
-/**
- *
- *
- *
- *
- *
- *
- */
+// *****************************************************************************************************************************************************************************************************************************
 
 // Test without Enzyme
 it('shows a comment box (legacy)', () => {
