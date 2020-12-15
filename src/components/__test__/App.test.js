@@ -9,4 +9,10 @@ import App from '../App';
  * @param {function} > Block of code to execute your test
  */
 
-it('shows a comment box', () => {});
+it('shows a comment box', () => {
+	const div = document.create('div');
+
+	ReactDOM.render(<App />, div);
+
+	ReactDOM.unmountComponentAtNode(div);
+});
