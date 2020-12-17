@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount, ShallowWrapper } from 'enzyme';
+import { mount } from 'enzyme';
 import CommentBox from 'components/CommentBox';
 
 let wrapper;
@@ -38,7 +38,11 @@ it('has a text area that users can type in', () => {
 
 	// This is step 4:
 	// https://enzymejs.github.io/enzyme/docs/api/ShallowWrapper/update.html
+
 	wrapper.update();
 
-	console.log(wrapper.debug());
+	// Instead of trying to figure out what the textarea value has, it makes more sense to test that the <textarea> component receives the correct value prop.
+	//Documentation on prop() - Returns the prop value for the root node of the wrapper with the provided key. It must be a single-node wrapper.
+
+	expect(wrapper.find('textarea').prop('value')).toEqual('new comment');
 });
