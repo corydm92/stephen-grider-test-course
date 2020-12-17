@@ -22,40 +22,43 @@ it('has a text area and a button', () => {
 	expect(wrapper.find('button').length).toEqual(1);
 });
 
-/** Simulating Events
- * 1.) Find the textarea element
- * 2.) Simulate a 'change' event
- * 3.) Provide a fake event object
- * 4.) Force the component to update
- * 5.) Asert that the textareas value has changed
- */
+describe('text area functionality', () => {
+	beforeEach(() => {
+		/** Simulating Events
+		 * 1.) Find the textarea element
+		 * 2.) Simulate a 'change' event
+		 * 3.) Provide a fake event object
+		 * 4.) Force the component to update
+		 * 5.) Asert that the textareas value has changed
+		 */
 
-it('has a text area that users can type in', () => {
-	// https://enzymejs.github.io/enzyme/docs/api/ShallowWrapper/simulate.html
-	wrapper
-		.find('textarea')
-		.simulate('change', { target: { value: 'new comment' } }); // use HTML nomenclature, react uses the 'on' prefix for its events (ex: onChange, onClick)
+		// https://enzymejs.github.io/enzyme/docs/api/ShallowWrapper/simulate.html
+		wrapper
+			.find('textarea')
+			.simulate('change', { target: { value: 'new comment' } }); // use HTML nomenclature, react uses the 'on' prefix for its events (ex: onChange, onClick)
 
-	// This is step 4:
-	// https://enzymejs.github.io/enzyme/docs/api/ShallowWrapper/update.html
+		// This is step 4:
+		// https://enzymejs.github.io/enzyme/docs/api/ShallowWrapper/update.html
 
-	// wrapper.update(); // This actually doesn't seem necessary, able to find the value without the update() method.
+		// wrapper.update(); // This actually doesn't seem necessary, able to find the value without the update() method.
+	});
 
-	// Instead of trying to figure out what the textarea value has, it makes more sense to test that the <textarea> component receives the correct value prop.
-	//Documentation on prop() - Returns the prop value for the root node of the wrapper with the provided key. It must be a single-node wrapper.
+	// We do not need a second afterEach method, because after each test, the first method will run our cleanup. We create additional beforeEaches to start our tests with slightly different configuration
+	afterEach(() => {});
 
-	expect(wrapper.find('textarea').prop('value')).toEqual('new comment');
-});
+	it('has a text area that users can type in', () => {
+		// Instead of trying to figure out what the textarea value has, it makes more sense to test that the <textarea> component receives the correct value prop.
+		// Documentation on prop() - Returns the prop value for the root node of the wrapper with the provided key. It must be a single-node wrapper.
 
-it('submits the form and clears the text area', () => {
-	wrapper
-		.find('textarea')
-		.simulate('change', { target: { value: 'new comment' } }); // use HTML nomenclature, react uses the 'on' prefix for its events (ex: onChange, onClick)
+		expect(wrapper.find('textarea').prop('value')).toEqual('new comment');
+	});
 
-	expect(wrapper.find('textarea').prop('value')).toEqual('new comment'); // Make sure that the textarea has a value (because it is '' by default)
+	it('submits the form and clears the text area', () => {
+		expect(wrapper.find('textarea').prop('value')).toEqual('new comment'); // Make sure that the textarea has a value (because it is '' by default)
 
-	// Because the button does not have an onClick event, we want to simulate that to form is submit. That will trigger the correct event, not clicking on the button.
-	wrapper.find('form').simulate('submit');
+		// Because the button does not have an onClick event, we want to simulate that to form is submit. That will trigger the correct event, not clicking on the button.
+		wrapper.find('form').simulate('submit');
 
-	expect(wrapper.find('textarea').prop('value')).toEqual('');
+		expect(wrapper.find('textarea').prop('value')).toEqual('');
+	});
 });
