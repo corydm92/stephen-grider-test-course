@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, ShallowWrapper } from 'enzyme';
 import CommentBox from 'components/CommentBox';
 
 let wrapper;
@@ -20,4 +20,11 @@ it('has a text area and a button', () => {
 
 	expect(wrapper.find('textarea').length).toEqual(1);
 	expect(wrapper.find('button').length).toEqual(1);
+});
+
+it('has a text area that users can type in', () => {
+	// https://enzymejs.github.io/enzyme/docs/api/ShallowWrapper/simulate.html
+	wrapper
+		.find('textarea')
+		.simulate('change', { target: { value: 'new comment' } }); // use HTML nomenclature, react uses the 'on' prefix for its events (ex: onChange, onClick)
 });
