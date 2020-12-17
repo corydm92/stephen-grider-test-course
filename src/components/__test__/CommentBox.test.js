@@ -52,8 +52,9 @@ it('submits the form and clears the text area', () => {
 		.find('textarea')
 		.simulate('change', { target: { value: 'new comment' } }); // use HTML nomenclature, react uses the 'on' prefix for its events (ex: onChange, onClick)
 
-	expect(wrapper.find('textarea').prop('value')).toEqual('new comment');
+	expect(wrapper.find('textarea').prop('value')).toEqual('new comment'); // Make sure that the textarea has a value (because it is '' by default)
 
+	// Because the button does not have an onClick event, we want to simulate that to form is submit. That will trigger the correct event, not clicking on the button.
 	wrapper.find('form').simulate('submit');
 
 	expect(wrapper.find('textarea').prop('value')).toEqual('');
