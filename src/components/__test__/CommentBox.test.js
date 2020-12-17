@@ -22,9 +22,23 @@ it('has a text area and a button', () => {
 	expect(wrapper.find('button').length).toEqual(1);
 });
 
+/** Simulating Events
+ * 1.) Find the textarea element
+ * 2.) Simulate a 'change' event
+ * 3.) Provide a fake event object
+ * 4.) Force the component to update
+ * 5.) Asert that the textareas value has changed
+ */
+
 it('has a text area that users can type in', () => {
 	// https://enzymejs.github.io/enzyme/docs/api/ShallowWrapper/simulate.html
 	wrapper
 		.find('textarea')
 		.simulate('change', { target: { value: 'new comment' } }); // use HTML nomenclature, react uses the 'on' prefix for its events (ex: onChange, onClick)
+
+	// This is step 4:
+	// https://enzymejs.github.io/enzyme/docs/api/ShallowWrapper/update.html
+	wrapper.update();
+
+	console.log(wrapper.debug());
 });
