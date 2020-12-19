@@ -1,11 +1,17 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import CommentBox from 'components/CommentBox';
+import { StoreProvider } from 'store.js';
 
 let wrapper;
 
 beforeEach(() => {
-	wrapper = mount(<CommentBox />);
+	// Add StoreProvider to allow access to `const { state, dispatch } = useContext(store)` in our component.
+	wrapper = mount(
+		<StoreProvider>
+			<CommentBox />
+		</StoreProvider>
+	);
 });
 
 afterEach(() => {
