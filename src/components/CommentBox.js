@@ -9,6 +9,7 @@ export default function CommentBox() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+
 		dispatch(saveComment(comment));
 		setComment('');
 	};
