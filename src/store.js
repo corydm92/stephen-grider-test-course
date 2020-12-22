@@ -16,9 +16,11 @@ const store = createContext({});
 const { Provider } = store;
 
 const StoreProvider = (props) => {
-	const [state, dispatch] = useReducer(rootReducer, initialState);
+	let { initState, children } = props; // Used in testing, if we need to pass in some default state to test our reducers.
 
-	return <Provider value={{ state, dispatch }}>{props.children}</Provider>;
+	const [state, dispatch] = useReducer(rootReducer, initState || initialState); // We do a || operator because we are exporting the initialStat value, and cant export it if we assign { initState = initialState, children } = props;
+
+	return <Provider value={{ state, dispatch }}>{children}</Provider>;
 };
 
 export { store, StoreProvider, initialState };

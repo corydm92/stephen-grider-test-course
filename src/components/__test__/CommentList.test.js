@@ -5,8 +5,12 @@ import { StoreProvider } from 'store';
 
 let wrapper;
 beforeEach(() => {
+	const initState = {
+		comments: ['Comment 1', 'Comment 2'],
+	};
+
 	wrapper = mount(
-		<StoreProvider>
+		<StoreProvider initState={initState}>
 			<CommentList />
 		</StoreProvider>
 	);
