@@ -25,7 +25,9 @@ export default function CommentBox() {
 			<textarea value={comment} onChange={(e) => setComment(e.target.value)} />
 			<div>
 				<button>Submit Comment</button>
-				<button onClick={handleFetch}>Fetch Comments</button>
+				<button data-test="fetch-button" onClick={handleFetch}>
+					Fetch Comments
+				</button>
 			</div>
 		</form>
 	);
