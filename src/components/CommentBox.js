@@ -1,17 +1,22 @@
 import React, { useState, useContext } from 'react';
 import { store } from 'store';
-import { saveComment } from 'actions';
+import { saveComment, fetchComments } from 'actions';
 
 export default function CommentBox() {
 	const [comment, setComment] = useState('');
 
-	const { dispatch } = useContext(store);
+	const { apiDispatch } = useContext(store);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		dispatch(saveComment(comment));
+		apiDispatch(saveComment(comment));
 		setComment('');
+	};
+
+	const handleFetch = (e) => {
+		e.preventDefault();
+		apiDispatch(fetchComments(apiDispatch));
 	};
 
 	return (
@@ -20,6 +25,7 @@ export default function CommentBox() {
 			<textarea value={comment} onChange={(e) => setComment(e.target.value)} />
 			<div>
 				<button>Submit Comment</button>
+				<button onClick={handleFetch}>Fetch Comments</button>
 			</div>
 		</form>
 	);

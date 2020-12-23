@@ -1,5 +1,6 @@
 import React, { createContext, useReducer } from 'react';
 import rootReducer from 'reducers/';
+import { applyApiMiddleware } from 'actions';
 
 // This file is what drives our app state, the brain of our store logic. So this is a very important file,
 // some things we may want to extract like initial state but defining our store and defining our provider
@@ -20,7 +21,9 @@ const StoreProvider = (props) => {
 
 	const [state, dispatch] = useReducer(rootReducer, initState || initialState); // We do a || operator because we are exporting the initialStat value, and cant export it if we assign { initState = initialState, children } = props;
 
-	return <Provider value={{ state, dispatch }}>{children}</Provider>;
+	const apiDispatch = applyApiMiddleware(dispatch);
+
+	return <Provider value={{ state, apiDispatch }}>{children}</Provider>;
 };
 
 export { store, StoreProvider, initialState };
