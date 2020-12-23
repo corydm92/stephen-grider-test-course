@@ -1,0 +1,9 @@
+UNIT TEST VS INTEGRATION TEST
+
+Unit Test (few parts):
+- Does teh CommentBox show a button?
+- Does teh CommentList produce a list of 'LI' elements?
+- Does teh actino creator return an Object?
+
+Integration Test (many parts):
+- Does clicking 'Fetch Comments' button show a list of LI's?

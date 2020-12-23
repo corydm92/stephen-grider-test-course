@@ -25,7 +25,7 @@ it('has a text area and a button', () => {
 	// console.log(wrapper.find('button').length);
 
 	expect(wrapper.find('textarea').length).toEqual(1);
-	expect(wrapper.find('button').length).toEqual(1);
+	expect(wrapper.find('button').length).toEqual(2); // One submits text, other fetches
 });
 
 describe('text area functionality', () => {

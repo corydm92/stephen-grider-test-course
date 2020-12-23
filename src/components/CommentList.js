@@ -10,8 +10,6 @@ export default function CommentList() {
 		));
 	};
 
-	console.log(state);
-
 	return (
 		<div>
 			<ul>{renderComments()}</ul>
