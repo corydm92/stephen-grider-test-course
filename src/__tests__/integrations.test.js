@@ -6,6 +6,23 @@ import App from 'components/App';
 import moxios from 'moxios';
 // Its sole purpose is to fake out requests. We can tell this library to watch for an axios request, and if it gets one we will trick axios into thinking it instantly gets a response. No network request will be created, so the instance axios trys to make an http request moxios is going to axe that and say "nope, youre not allowed to make network requests", and instead of denying it or failing the request, moxios will turn around and say "Hey, dont worry about it the request didn't actually get issued but here is some data that you should use in place of the response"
 
+beforeEach(() => {
+	moxios.install(); // Sets up moxios, intercept axios requests (stops them)
+
+	/**
+	 * 1st arg - whole network request path
+	 * 2nd arg - object that is returned to axios
+	 */
+	moxios.stubRequest('https://jsonplaceholder.typicode.com/comments', {
+		status: 200,
+		response: [{ name: 'Fetched 1' }, { name: 'Fetched 2' }],
+	});
+});
+
+afterEach(() => {
+	moxios.uninstall(); // If left open, this stubRequest may persist into other test files
+});
+
 it('can fetch a list of comments and display them', () => {
 	// Attempt to render the entire app
 	const wrapper = mount(
