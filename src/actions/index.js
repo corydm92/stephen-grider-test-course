@@ -38,17 +38,6 @@ export function saveComment(comment) {
 	return { type: SAVE_COMMENT, payload: comment };
 }
 
-export async function fetchComments(dispatch) {
-	const response = await axios.get(
-		'https://jsonplaceholder.typicode.com/comments'
-	);
-
-	console.log(response);
-
-	// const comments = response.data.slice(0, 5);
-
-	const comments = [1, 2, 3, 4, 5, 6].slice(0, 5);
-
-	// console.log(comments);
-	return dispatch({ type: FETCH_COMMENTS, payload: comments });
+export async function fetchComments() {
+	return { type: FETCH_COMMENTS };
 }
