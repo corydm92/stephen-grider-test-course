@@ -46,7 +46,7 @@ describe('text area functionality', () => {
 		// This is step 4:
 		// https://enzymejs.github.io/enzyme/docs/api/ShallowWrapper/update.html
 
-		// wrapper.update(); // This actually doesn't seem necessary, able to find the value without the update() method.
+		wrapper.update(); // This actually doesn't seem necessary, able to find the value without the update() method. Keeping in because update is needed for other tests.
 	});
 
 	// We do not need a second afterEach method, because after each test, the first method will run our cleanup. We create additional beforeEaches to start our tests with slightly different configuration
